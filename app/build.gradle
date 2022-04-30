@@ -4,6 +4,9 @@ plugins {
 
 android {
     compileSdk 32
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
         applicationId "com.rsin.js_api_ar"
@@ -37,4 +40,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation files('libs/wikitudesdk.aar')
     implementation "com.google.ar:core:1.24.0"
+    //    for Object Detection start
+    
+    implementation 'com.google.mlkit:image-labeling:17.0.7'
+    implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.7'
+
+    //    for Object Detection End
 }

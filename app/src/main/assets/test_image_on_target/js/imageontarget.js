@@ -5,7 +5,7 @@
 var imageres = new AR.ImageResource("assets/solar_system_test_image.jpg");
 
 var imageDrawable = new AR.ImageDrawable(imageres, 2, {
-  translate : { x: 1 },
+  translate : { x: 0 },
   rotate : { z: 0 },
   onClick : function() {
       // 'this' represents the ImageDrawable

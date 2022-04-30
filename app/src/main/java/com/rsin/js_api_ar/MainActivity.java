@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         try {
 //            this.architectView.load("file:///android_asset/test_image_on_target/index.html");
             this.architectView.load("file:///android_asset/test_image_on_target/index.html");
-//            this.architectView.load("file:///android_asset/sample_video/index.html");
+//            this.architectView.load("file:///android_asset/07_3dModels_1_3dModelOnTarget/index.html");
 //            this.architectView.load("http://yoursid.me/11_Video_1_SimpleVideo/");
         }catch (Exception e)
         {
