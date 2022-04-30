@@ -48,7 +48,7 @@ var World = {
             loaded. Depending on the size of the model and where it is stored (locally or remotely) it might take
             some time to completely load and it is recommended to inform the user about the loading time.
         */
-        this.modelCar = new AR.Model("assets/car.wt3", {
+        this.modelCar = new AR.Model("assets/me.wt3", {
             onLoaded: World.showInfoBar,
             onError: World.onError,
             scale: {

@@ -65,7 +65,7 @@ public class ObjectDetection extends AppCompatActivity {
 
                 intent.putExtra("list",list.toArray());
                 Toast.makeText(ObjectDetection.this, "Call", Toast.LENGTH_SHORT).show();
-
+                startActivity(intent);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -79,6 +79,7 @@ public class ObjectDetection extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+        intent  = new Intent(ObjectDetection.this,ShowDetails.class);
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
