@@ -11,11 +11,14 @@ import com.wikitude.architect.ArchitectView;
 
 public class MainActivity extends AppCompatActivity {
     private ArchitectView architectView;
+    String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        path = getIntent().getStringExtra("PATH");
+        Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
 
         this.architectView = (ArchitectView)this.findViewById( R.id.architectView );
         final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
@@ -28,15 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         architectView.onPostCreate();
         try {
-//            this.architectView.load("file:///android_asset/test_image_on_target/index.html");
-            this.architectView.load("file:///android_asset/test_image_on_target/index.html");
-//            this.architectView.load("file:///android_asset/07_3dModels_1_3dModelOnTarget/index.html");
-//            this.architectView.load("file:///android_asset/sample_video/index.html");
-//            this.architectView.load("file:///android_asset/07_3dModels_1_3dModelOnTarget/index.html");
-//            this.architectView.load("file:///android_asset/02_AdvancedGestures/index.html");
-//            this.architectView.load("file:///android_asset/ModelOnTarget/index.html");
-//            this.architectView.load("file:///android_asset/DistanceToTarget/index.html");
-//            this.architectView.load("http://yoursid.me/11_Video_1_SimpleVideo/");
+            this.architectView.load(path);
         }catch (Exception e)
         {
             Toast.makeText(this, "error "+e.getMessage(), Toast.LENGTH_SHORT).show();

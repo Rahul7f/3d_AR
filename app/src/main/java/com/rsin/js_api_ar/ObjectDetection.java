@@ -101,7 +101,7 @@ public class ObjectDetection extends AppCompatActivity {
         //Linking Buttons With Action START
 
         //FROM CAMERA
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.cardView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -119,10 +119,36 @@ public class ObjectDetection extends AppCompatActivity {
             }
         });
         //WIKITUDE
-        binding.button3.setOnClickListener(new View.OnClickListener() {
+        binding.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+                intent1.putExtra("PATH","file:///android_asset/test_image_on_target/index.html");
+                startActivity(intent1);
+            }
+        });
+
+        binding.cardView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+                intent1.putExtra("PATH","file:///android_asset/tracking_2d_solar_system/index.html");
+                startActivity(intent1);
+            }
+        });
+        binding.cardView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+                intent1.putExtra("PATH","file:///android_asset/ModelOnTarget/index.html");
+                startActivity(intent1);
+            }
+        });
+        binding.cardView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+                intent1.putExtra("PATH","file:///android_asset/sample_video/index.html");
                 startActivity(intent1);
             }
         });

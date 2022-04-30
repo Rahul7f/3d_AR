@@ -17,7 +17,7 @@ var World = {
 //        this.targetCollectionResource = new AR.TargetCollectionResource("assets/tracker.wtc", {
 //            onError: World.onError
 //        });
-        this.targetCollectionResource = new AR.TargetCollectionResource("assets/demo.wtc", {
+        this.targetCollectionResource = new AR.TargetCollectionResource("assets/tracker.wtc", {
             onError: World.onError
         });
 
