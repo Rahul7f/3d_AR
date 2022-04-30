@@ -41,54 +41,36 @@ import java.util.List;
 
 public class ObjectDetection extends AppCompatActivity {
     ActivityObjectDetectionBinding binding;
-    ImageView imageView;
-    TextView textView;
-    Button button;
     private final static int CAMERA_CODE = 111;
     private final static int READ_CODE = 222;
     private final static int WRITE_CODE = 333;
     ActivityResultLauncher<Intent> cameraLauncher;
     ActivityResultLauncher<Intent> galleryLauncher;
-    InputImage inputImage;
+    InputImage inputImage;//for google ml kit
     ImageLabeler labeler;
     ArrayList<String> list;
     Intent intent;
 
-    void processImage() {
-        labeler.process(inputImage).addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
-            @Override
-            public void onSuccess(List<ImageLabel> imageLabels) {
-                list = new ArrayList<>();
-                for (ImageLabel label : imageLabels) {
-                    list.add(label.getText());
-                }
-
-                intent.putExtra("list",list.toArray());
-                Toast.makeText(ObjectDetection.this, "Call", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
-        intent  = new Intent(ObjectDetection.this,ShowDetails.class);
+        binding = ActivityObjectDetectionBinding.inflate(getLayoutInflater());
+        super.onCreate(savedInstanceState);
+        setContentView(binding.getRoot());
+        //initialization START
+        labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS); //google image detection or ml kit
+        intent = new Intent(ObjectDetection.this, ShowDetails.class);//to start show detail
+
+        //to get Data (Image)
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-
                 try {
                     Intent data = result.getData();
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    intent.putExtra("bitmap",bitmap);
-                    imageView.setImageBitmap(bitmap);
+                    intent.putExtra("bitmap", bitmap);
+                    intent.putExtra("VALUE", "camera");
+
                     inputImage = InputImage.fromBitmap(bitmap, 0);
 
                     processImage();
@@ -98,7 +80,7 @@ public class ObjectDetection extends AppCompatActivity {
             }
 
 
-        });
+        });//get image from camera
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -106,73 +88,42 @@ public class ObjectDetection extends AppCompatActivity {
                 try {
                     Intent data = result.getData();
                     inputImage = InputImage.fromFilePath(ObjectDetection.this, data.getData());
-                    imageView.setImageURI(data.getData());
-                    intent.putExtra("uri",data.getData());
+                    intent.putExtra("uri", data.getData());
+                    intent.putExtra("VALUE", "gallery");
                     processImage();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        });
-        intent  = new Intent(ObjectDetection.this,ShowDetails.class);
-        binding = ActivityObjectDetectionBinding.inflate(getLayoutInflater());
-        super.onCreate(savedInstanceState);
-        setContentView(binding.getRoot());
+        });//get image from gallery
+        //initialization END
 
-        button = binding.button;
-        textView = binding.textView;
-        imageView = binding.imageView;
+        //Linking Buttons With Action START
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        //FROM CAMERA
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] options = {"Camera", "Gallery"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(ObjectDetection.this);
-                builder
-                        .setTitle("Pick An Option")
-                        .setItems(options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                switch (i) {
-                                    case 0:
-                                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        cameraLauncher.launch(cameraIntent);
-                                        break;
-                                    case 1:
-                                        Intent storageIntent = new Intent();
-                                        storageIntent.setType("image/*");
-                                        storageIntent.setAction(Intent.ACTION_GET_CONTENT);
-                                        galleryLauncher.launch(storageIntent);
-
-                                }
-                            }
-                        }).show();
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraLauncher.launch(cameraIntent);
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        //FROM GALLERY
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] options = {"Camera", "Gallery"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(ObjectDetection.this);
-                builder
-                        .setTitle("Pick An Option")
-                        .setItems(options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                switch (i) {
-                                    case 0:
-                                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        cameraLauncher.launch(cameraIntent);
-                                        break;
-                                    case 1:
-                                        Intent storageIntent = new Intent();
-                                        storageIntent.setType("image/*");
-                                        storageIntent.setAction(Intent.ACTION_GET_CONTENT);
-                                        galleryLauncher.launch(storageIntent);
-
-                                }
-                            }
-                        }).show();
+                Intent storageIntent = new Intent();
+                storageIntent.setType("image/*");
+                storageIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryLauncher.launch(storageIntent);
+            }
+        });
+        //WIKITUDE
+        binding.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+                startActivity(intent1);
             }
         });
     }
@@ -185,15 +136,32 @@ public class ObjectDetection extends AppCompatActivity {
         checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, READ_CODE);
         checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_CODE);
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
+    //checking Permissions and Accepting If not
     public void checkPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(ObjectDetection.this, permission) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(ObjectDetection.this, new String[]{permission}, requestCode);
         }
+    }
+    //getting labels and start the show details activity
+    void processImage() {
+        labeler.process(inputImage).addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
+            @Override
+            public void onSuccess(List<ImageLabel> imageLabels) {
+                list = new ArrayList<>();
+                for (ImageLabel label : imageLabels) {
+                    list.add(label.getText());
+                }
+                intent.putExtra("list", list);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        });
     }
 }

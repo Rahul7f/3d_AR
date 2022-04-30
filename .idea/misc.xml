@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gtirk/AndroidStudioProjects/testAR_js_api/app/src/main/res/layout/activity_main.xml" value="0.1265625" />
+        <entry key="..\:/Users/gtirk/AndroidStudioProjects/testAR_js_api/app/src/main/res/layout/activity_object_detection.xml" value="0.1265625" />
         <entry key="..\:/Users/gtirk/AndroidStudioProjects/testAR_js_api/app/src/main/res/layout/activity_show_details.xml" value="0.22826086956521738" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
       </map>
