@@ -1,3 +1,12 @@
+var previousRotationValue = [];
+var previousScaleValue = [];
+
+var oneFingerGestureAllowed = false;
+
+AR.context.on2FingerGestureStarted = function() {
+    oneFingerGestureAllowed = false;
+};
+
 /**-------------------client side---------------------------- ***/
 
 
@@ -5,12 +14,56 @@
 var imageres = new AR.ImageResource("assets/solar_system_test_image.jpg");
 
 var imageDrawable = new AR.ImageDrawable(imageres, 2, {
-  translate : { x: 1 },
+  translate : { x: 0 },
   rotate : { z: 0 },
-  onClick : function() {
-      // 'this' represents the ImageDrawable
-      this.rotate.z += 10;
-    }
+  onDragBegan: function( /*x, y*/ ) {
+      oneFingerGestureAllowed = true;
+
+      return true;
+  },
+  onDragChanged: function(x, y, intersectionX, intersectionY) {
+      if (oneFingerGestureAllowed) {
+          this.translate = {
+              x: intersectionX,
+              y: intersectionY
+          };
+      }
+
+      return true;
+  },
+  onDragEnded: function( /*x, y*/ ) {
+      return true;
+  },
+  onRotationBegan: function( /*angleInDegrees*/ ) {
+      return true;
+  },
+  onRotationChanged: function(angleInDegrees) {
+      rotate.z = previousRotationValue + angleInDegrees;
+
+      return true;
+  },
+  onRotationEnded: function( /*angleInDegrees*/ ) {
+      previousRotationValue = rotate.z;
+
+      return true;
+  },
+  onScaleBegan: function( /*scale*/ ) {
+      return true;
+  },
+  onScaleChanged: function(scale) {
+      var scaleValue = previousScaleValue * scale;
+      scale = {
+          x: scaleValue,
+          y: scaleValue
+      };
+
+      return true;
+  },
+  onScaleEnded: function( /*scale*/ ) {
+      previousScaleValue = scale.x;
+
+      return true;
+  }
 });
 
 // test image end

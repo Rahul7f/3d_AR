@@ -83,10 +83,25 @@ var modelCar = new AR.Model("assets/first.wt3", {
     }
 });
 
+
 var trackable = new AR.ImageTrackable(tracker, "*", {
     drawables: {
         cam: [modelCar]
     },
+    onRotationBegan: function(angleInDegrees) {
+        return true;
+    },
+    onRotationChanged: function(angleInDegrees) {
+       rotate.z = previousRotationValue + angleInDegrees;
+
+       return true;
+    },
+    onRotationEnded: function(angleInDegrees) {
+       previousRotationValue = rotate.z;
+
+       return true;
+    }
+
 });
 
 onError: function onErrorFn(error) {
