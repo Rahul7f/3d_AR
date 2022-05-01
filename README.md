@@ -83,8 +83,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Nowadays there are a lot of distractions from the older times so studying in peace or with the right mind is getting harder and harder now. Students as well as the learners who want to learn now want the study to be as fun as possible so that they don’t get bored of it. So we are presenting a way for it.
 Providing a 3D Environment with an application or wearable support to get an interaction with the Book they are studying.
 One of the solutions that we have in our hands right now is augmented reality. With the help of augmented reality, we can get many possibilities to make anything interesting as possible. As it is a new thing in the market and in the near future and now there is a need to adapt it right now.
@@ -122,6 +120,9 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+<!--Uploding imgs -->
+
+img1[as-ss|]
 
 <!-- GETTING STARTED -->
 ## Getting Started
