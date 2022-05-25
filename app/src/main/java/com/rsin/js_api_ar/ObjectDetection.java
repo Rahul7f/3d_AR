@@ -147,9 +147,14 @@ public class ObjectDetection extends AppCompatActivity {
         binding.cardView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
-                intent1.putExtra("PATH","file:///android_asset/sample_video/index.html");
-                startActivity(intent1);
+//                Intent intent1 = new Intent(ObjectDetection.this, MainActivity.class);
+//                intent1.putExtra("PATH","file:///android_asset/11_Video_2_PlaybackStates/index.html");
+//                startActivity(intent1);
+
+
+                final Intent intent = new Intent(ObjectDetection.this, SimpleArActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

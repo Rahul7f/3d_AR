@@ -39,6 +39,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JS_API_AR">
         <activity
+            android:name=".SimpleArActivity"
+            android:exported="false" />
+        <activity
             android:name=".View3DActivity"
             android:exported="false" />
         <activity
